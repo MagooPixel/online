@@ -1,7 +1,6 @@
 import json
 
 Prefix = "!!online"
-Prefix = "!!ol"
 PluginName = "OnlineList"
 DataPath = "plugins/" + PluginName + "/data.json"
 ConfigFilePath = "plugins/config/" + PluginName + ".json"
@@ -82,7 +81,7 @@ def is_bot(player):
     return False
 
 def on_load(server, module):
-    server.add_help_message(Prefix, "获取玩家列表 | 自动识别bot")
+    server.add_help_message(Prefix, "获取玩家列表 自动识别bot")
 
 def on_mcdr_stop(server):
     print("on_mcdr_stop")
