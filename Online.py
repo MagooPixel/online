@@ -9,6 +9,7 @@ ConfigFilePath = "plugins/config/" + PluginName + ".json"
 data = []
 flag = False
 
+
 def joined_info(msg):
     if "logged in with entity id" in msg:
         if "[local]" in msg:
@@ -18,6 +19,7 @@ def joined_info(msg):
     else:
         return [False]
 
+
 def load_data():
     global data
     try:
@@ -25,6 +27,7 @@ def load_data():
             data = json.load(file, encoding='utf8')
     except:
         return
+
 
 def save_data():
     global data
@@ -34,12 +37,14 @@ def save_data():
     except:
         return
 
+
 def add_data(name, isbot):
     global data
     load_data()
-    new = {"name" : name, "isbot" : isbot}
+    new = {"name": name, "isbot": isbot}
     data.append(new)
     save_data()
+
 
 def delete_data(name):
     global data
@@ -49,6 +54,7 @@ def delete_data(name):
             del data[i]
             save_data()
             return
+
 
 def show_list(server, info):
     global data
@@ -60,10 +66,12 @@ def show_list(server, info):
             msg += " §6(bot)§r"
         server.reply(info, msg)
 
+
 def get_online_list():
     global data
     load_data()
     return data
+
 
 def is_online(player):
     online_list = get_online_list()
@@ -71,6 +79,7 @@ def is_online(player):
         if player == online_list[i]["name"]:
             return True
     return False
+
 
 def is_bot(player):
     online_list = get_online_list()
@@ -80,8 +89,10 @@ def is_bot(player):
                 return True
     return False
 
+
 def on_load(server, module):
     server.add_help_message(Prefix, "获取玩家列表 自动识别bot")
+
 
 def on_mcdr_stop(server):
     print("on_mcdr_stop")
@@ -90,13 +101,14 @@ def on_mcdr_stop(server):
     data = []
     save_data()
 
+
 def on_player_left(server, player):
     global data
     load_data()
     delete_data(player)
 
-def on_info(server, info):
 
+def on_info(server, info):
     content = info.content
     splited_content = content.split()
 
@@ -116,5 +128,3 @@ def on_info(server, info):
         return
     server.reply(info, "§c格式错误§r")
     return
-
-
